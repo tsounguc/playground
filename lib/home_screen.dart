@@ -4,8 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
+  // WidgetRef allows a widget to communicate to a provider
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: AppBar(),
+        body: const Column(
+          children: [
+            Center(
+              child: Text(''),
+            ),
+          ],
+        ));
   }
 }
