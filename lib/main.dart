@@ -7,7 +7,8 @@ import 'home_screen.dart';
 // ProviderRef allows a provider to communicate to other providers
 // final nameProvider = Provider<String>((ProviderRef ref) => 'Christian Tsoungui Nkoulou');
 
-// StateProvider is kinda like an upgrade to Provider; With StateProvider you can update the value from outside
+// StateProvider is kinda like an upgrade to Provider; With StateProvider you can update the value from outside.
+// like Provider, it's immutable
 final nameProvider = StateProvider<String?>((StateProviderRef ref) => null);
 
 void main() {
