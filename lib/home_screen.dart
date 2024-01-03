@@ -2,38 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:playground/main.dart';
 
-class MyWidget extends ConsumerStatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  ConsumerState<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends ConsumerState<MyWidget> {
-  // Use ref.read() in lifecycle state methods or function that you create
-  @override
-  void initState() {
-    final name = ref.read(nameProvider);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Use ref.watch inside the build method
-    final name = ref.watch(nameProvider);
-    return Scaffold(
-      appBar: AppBar(title: Text(name)),
-      body: Column(
-        children: [
-          Center(
-            child: Text(name),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
@@ -49,10 +17,11 @@ class MyHomePage extends StatelessWidget {
 
           // watch if you want to keep listening in case there are changes to the data. It's generally recommended
           // to use watch inside a build method
-          final name = ref.watch(nameProvider);
+          final name = ref.watch(nameProvider) ?? '';
 
           return Column(
             children: [
+              TextField(onSubmitted: (value) {}),
               Center(
                 child: Text(name),
               ),

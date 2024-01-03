@@ -5,7 +5,10 @@ import 'home_screen.dart';
 
 // Provider is a read only widget and is immutable
 // ProviderRef allows a provider to communicate to other providers
-final nameProvider = Provider<String>((ProviderRef ref) => 'Christian Tsoungui Nkoulou');
+// final nameProvider = Provider<String>((ProviderRef ref) => 'Christian Tsoungui Nkoulou');
+
+// StateProvider is kinda like an upgrade to Provider; With StateProvider you can update the value from outside
+final nameProvider = StateProvider<String?>((StateProviderRef ref) => null);
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
