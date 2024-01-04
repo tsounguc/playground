@@ -53,7 +53,11 @@ class User {
 
 // Extending StateNotifier give the UserNotifier class access to the state variable in order to update the data, ie the User
 class UserNotifier extends StateNotifier<User> {
-  UserNotifier(super.state);
+  // UserNotifier(super.state);
+
+  // Instead of receiving the initial state from the StateNotifierProvider,
+  // Set the initial state value directly in the StateNotifier class instead of StateNotifierProvider
+  UserNotifier() : super(const User(name: 'Christian Tsoungui Nkoulou', age: 27));
 
   void updateName(String newName) {
     state = state.copywith(name: newName);

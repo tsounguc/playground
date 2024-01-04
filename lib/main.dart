@@ -19,7 +19,10 @@ import 'home_screen.dart';
 // In our case that's UserNotifier and User.
 // Not doing this will result in a variable of type Object? when trying to access state
 final userProvider = StateNotifierProvider<UserNotifier, User>(
-    (ref) => UserNotifier(const User(name: 'Christian Tsoungui Nkoulou', age: 27)));
+    // (ref) => UserNotifier(const User(name: 'Christian Tsoungui Nkoulou', age: 27)));
+
+    // Set the initial state value directly in the StateNotifier class instead of sending it from StateNotifierProvider
+    (ref) => UserNotifier());
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
