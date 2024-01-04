@@ -29,15 +29,20 @@ class MyHomePage extends ConsumerWidget {
     // to use watch inside a build method
     // final name = ref.watch(nameProvider) ?? '';
 
-    final user = ref.watch(userProvider);
+    // final user = ref.watch(userProvider);
+
+    // the select method is present on any type of provider And is used to make the build function re-run
+    // the entire widget tree only after a specified property of the state Class has changed
+    final userSelect = ref.watch(userProvider.select((value) => value.name));
+
     return Scaffold(
-        appBar: AppBar(title: Text(user.name)),
+        appBar: AppBar(title: Text(userSelect)),
         body: Column(
           children: [
             TextField(onSubmitted: (value) => onSubmit(ref, value)),
             TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
             Center(
-              child: Text(user.age.toString()),
+              child: Text(userSelect),
             ),
           ],
         ));
