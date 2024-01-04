@@ -9,7 +9,13 @@ class MyHomePage extends ConsumerWidget {
     // notifier allows us to update the state with the value
     // ref.read(nameProvider.notifier).update((state) => value);
 
+    // notifier allows us to update the state with the value
     ref.read(userProvider.notifier).updateName(value);
+  }
+
+  onSubmitAge(WidgetRef ref, String value) {
+    // notifier allows us to update the state with the value
+    ref.read(userProvider.notifier).updateAge(int.parse(value));
   }
 
   // WidgetRef allows a widget to communicate to a provider
@@ -29,6 +35,7 @@ class MyHomePage extends ConsumerWidget {
         body: Column(
           children: [
             TextField(onSubmitted: (value) => onSubmit(ref, value)),
+            TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
             Center(
               child: Text(user.age.toString()),
             ),
