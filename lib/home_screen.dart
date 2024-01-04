@@ -8,6 +8,8 @@ class MyHomePage extends ConsumerWidget {
   onSubmit(WidgetRef ref, String value) {
     // notifier allows us to update the state with the value
     // ref.read(nameProvider.notifier).update((state) => value);
+
+    ref.read(userProvider.notifier).updateName(value);
   }
 
   // WidgetRef allows a widget to communicate to a provider

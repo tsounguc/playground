@@ -13,6 +13,8 @@ import 'home_screen.dart';
 // final nameProvider = StateProvider<String?>((StateProviderRef ref) => null);
 
 // For complex values like values maps or inside a class, we use the StateNotifier and StateNotifierProvider.
+// In order to have code that's robust and easier to test, we generally use this approach instead of StateProvider
+// Because it provides one place to have all the business logic
 // Pass to StateNotifierProvider the StateNotifier class and State class as Generic types in;
 // In our case that's UserNotifier and User.
 // Not doing this will result in a variable of type Object? when trying to access state
