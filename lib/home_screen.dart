@@ -7,7 +7,7 @@ class MyHomePage extends ConsumerWidget {
 
   onSubmit(WidgetRef ref, String value) {
     // notifier allows us to update the state with the value
-    ref.read(nameProvider.notifier).update((state) => value);
+    // ref.read(nameProvider.notifier).update((state) => value);
   }
 
   // WidgetRef allows a widget to communicate to a provider
@@ -19,14 +19,16 @@ class MyHomePage extends ConsumerWidget {
 
     // watch if you want to keep listening in case there are changes to the data. It's generally recommended
     // to use watch inside a build method
-    final name = ref.watch(nameProvider) ?? '';
+    // final name = ref.watch(nameProvider) ?? '';
+
+    final user = ref.watch(userProvider);
     return Scaffold(
-        appBar: AppBar(title: Text(name)),
+        appBar: AppBar(title: Text(user.name)),
         body: Column(
           children: [
             TextField(onSubmitted: (value) => onSubmit(ref, value)),
             Center(
-              child: Text(name),
+              child: Text(user.age.toString()),
             ),
           ],
         ));
