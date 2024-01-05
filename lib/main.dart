@@ -30,8 +30,10 @@ import 'package:http/http.dart' as http;
 // which means we can change the value of the state object outside of the class
 // final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
+// The FutureProvider fetchUserProvider is watching the Provider userRepositoryProvider
 final fetchUserProvider = FutureProvider((FutureProviderRef ref) {
-  return UserRepository().fetchUserData();
+  final userRepository = ref.watch(userRepositoryProvider);
+  return userRepository.fetchUserData();
 });
 
 void main() {

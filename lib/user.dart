@@ -25,14 +25,14 @@ class User {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'age': email,
+      'email': email,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       name: map['name'] ?? '',
-      email: map['age']?.toInt() ?? 0,
+      email: map['email'] ?? "",
     );
   }
 
@@ -42,7 +42,7 @@ class User {
 
   @override
   String toString() {
-    return 'User{name: $name, age: $email}';
+    return 'User{name: $name, email: $email}';
   }
 
   @override
@@ -54,8 +54,15 @@ class User {
   int get hashCode => name.hashCode ^ email.hashCode;
 }
 
+// We use a provider for UserRepository to have one place to instantiate it
+// and pass dependency's to it's constructor.
+// Putting UserRepository in a provider also use less memory
+// since provider caches the instance of UserRepository and returns it pretty quickly.
+// This also make it easier to test UserRepository
+final userRepositoryProvider = Provider((ref) => UserRepository());
+
 class UserRepository {
-  // Always make http calls inside a class separate class instead of directly in the Future provider
+  // Always make http calls inside a separate class instead of directly in the Future provider
   Future<User> fetchUserData() {
     const url = "https://jsonplaceholder.typicode.com/users/1";
     return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));

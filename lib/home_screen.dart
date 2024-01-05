@@ -58,7 +58,7 @@ class MyHomePage extends ConsumerWidget {
             ));
       },
       error: (error, stackTrace) {
-        return Scaffold(body: Center(child: Text(error.toString())));
+        return Scaffold(body: Center(child: Text("${stackTrace} ${error.toString()}")));
       },
       loading: () {
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
