@@ -31,8 +31,7 @@ import 'package:http/http.dart' as http;
 // final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
 final fetchUserProvider = FutureProvider((FutureProviderRef ref) {
-  const url = "https://jsonplaceholder.typicode.com/users/1";
-  return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+  return UserRepository().fetchUserData();
 });
 
 void main() {

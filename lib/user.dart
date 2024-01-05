@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 // This class is immutable
 @immutable
@@ -51,6 +52,14 @@ class User {
 
   @override
   int get hashCode => name.hashCode ^ email.hashCode;
+}
+
+class UserRepository {
+  // Always make http calls inside a class separate class instead of directly in the Future provider
+  Future<User> fetchUserData() {
+    const url = "https://jsonplaceholder.typicode.com/users/1";
+    return http.get(Uri.parse(url)).then((value) => User.fromJson(value.body));
+  }
 }
 
 // Extending StateNotifier give the UserNotifier class access to the state variable in order to update the data, ie the User
