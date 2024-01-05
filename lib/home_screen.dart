@@ -43,26 +43,36 @@ class MyHomePage extends ConsumerWidget {
 
     // ref.watch() returns an AsyncValue since it's watching a FutureProvider.
     // This approach is a better approach than FutureBuilder since is has less boiler plate
-    return ref.watch(fetchUserProvider).when(
-      data: (data) {
-        return Scaffold(
-            appBar: AppBar(title: Text(data.name)),
-            body: Column(
-              children: [
-                // TextField(onSubmitted: (value) => onSubmit(ref, value)),
-                // TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
-                Center(
-                  child: Text(data.email),
-                ),
-              ],
-            ));
-      },
-      error: (error, stackTrace) {
-        return Scaffold(body: Center(child: Text("${stackTrace} ${error.toString()}")));
-      },
-      loading: () {
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
+    // return ref.watch(fetchUserProvider).when(
+    //   data: (data) {
+    //     return Scaffold(
+    //         appBar: AppBar(title: Text(data.name)),
+    //         body: Column(
+    //           children: [
+    //             // TextField(onSubmitted: (value) => onSubmit(ref, value)),
+    //             // TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
+    //             Center(
+    //               child: Text(data.email),
+    //             ),
+    //           ],
+    //         ));
+    //   },
+    //   error: (error, stackTrace) {
+    //     return Scaffold(body: Center(child: Text("${stackTrace} ${error.toString()}")));
+    //   },
+    //   loading: () {
+    //     return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    //   },
+    // );
+
+    return Scaffold(
+      body: ref.watch(streamProvider).when(data: (data) {
+        return Center(child: Text(data.toString()));
+      }, error: (error, stackTrace) {
+        return Center(child: Text("$stackTrace ${error.toString()}"));
+      }, loading: () {
+        return const Center(child: CircularProgressIndicator());
+      }),
     );
   }
 }
