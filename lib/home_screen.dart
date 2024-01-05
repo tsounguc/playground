@@ -10,7 +10,7 @@ class MyHomePage extends ConsumerWidget {
     // ref.read(nameProvider.notifier).update((state) => value);
 
     // notifier allows us to update the state with the value
-    ref.read(userProvider.notifier).updateName(value);
+    // ref.read(userProvider.notifier).updateName(value);
 
     // With ChangeNotifier and ChangeNotifierProvider variable we don't need .notifier to have access to the methods inside ChangeNotifier
     // ref.read(userChangeNotifierProvider).updateName(value);
@@ -39,18 +39,30 @@ class MyHomePage extends ConsumerWidget {
 
     // the select method is present on any type of provider And is used to make the build function re-run
     // the entire widget tree only after a specified property of the state Class has changed
-    final userSelect = ref.watch(userProvider.select((value) => value.name));
+    // final userSelect = ref.watch(userProvider.select((value) => value.name));
 
-    return Scaffold(
-        appBar: AppBar(title: Text(userSelect)),
-        body: Column(
-          children: [
-            TextField(onSubmitted: (value) => onSubmit(ref, value)),
-            TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
-            Center(
-              child: Text(userSelect),
-            ),
-          ],
-        ));
+    // ref.watch() returns an AsyncValue since it's watching a FutureProvider.
+    // This approach is a better approach than FutureBuilder since is has less boiler plate
+    return ref.watch(fetchUserProvider).when(
+      data: (data) {
+        return Scaffold(
+            appBar: AppBar(title: Text(data.name)),
+            body: Column(
+              children: [
+                // TextField(onSubmitted: (value) => onSubmit(ref, value)),
+                // TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
+                Center(
+                  child: Text(data.email),
+                ),
+              ],
+            ));
+      },
+      error: (error, stackTrace) {
+        return Scaffold(body: Center(child: Text(error.toString())));
+      },
+      loading: () {
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      },
+    );
   }
 }
