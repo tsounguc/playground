@@ -11,11 +11,17 @@ class MyHomePage extends ConsumerWidget {
 
     // notifier allows us to update the state with the value
     ref.read(userProvider.notifier).updateName(value);
+
+    // With ChangeNotifier and ChangeNotifierProvider variable we don't need .notifier to have access to the methods inside ChangeNotifier
+    ref.read(userChangeNotifierProvider).updateName(value);
   }
 
   onSubmitAge(WidgetRef ref, String value) {
     // notifier allows us to update the state with the value
     ref.read(userProvider.notifier).updateAge(int.parse(value));
+
+    // With ChangeNotifier and ChangeNotifierProvider variable we don't need .notifier to have access to the methods inside ChangeNotifier
+    ref.read(userChangeNotifierProvider).updateAge(int.parse(value));
   }
 
   // WidgetRef allows a widget to communicate to a provider

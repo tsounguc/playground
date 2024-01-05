@@ -24,6 +24,10 @@ final userProvider = StateNotifierProvider<UserNotifier, User>(
     // Set the initial state value directly in the StateNotifier class instead of sending it from StateNotifierProvider
     (ref) => UserNotifier());
 
+// ChangeNotifierProvider is the only Provider that is mutable,
+// which means we can change the value of the state object outside of the class
+final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
+
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }

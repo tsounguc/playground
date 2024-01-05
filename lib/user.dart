@@ -67,3 +67,20 @@ class UserNotifier extends StateNotifier<User> {
     state = state.copywith(age: newAge);
   }
 }
+
+// ChangeNotifier and ChangNotifier Provider are part of Provider and was added to Riverpod as a way to transition from Provider to Riverpod
+// However it is not advice to change use them when creating an app from scratch with Riverpod
+class UserNotifierChange extends ChangeNotifier {
+  // Unlike the StateNotifier, we have to create the state insid the class
+  User user = const User(name: "", age: 0);
+
+  void updateName(String newName) {
+    user = user.copywith(name: newName);
+    notifyListeners();
+  }
+
+  void updateAge(int newAge) {
+    user = user.copywith(age: newAge);
+    notifyListeners();
+  }
+}
