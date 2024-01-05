@@ -6,30 +6,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 @immutable
 class User {
   final String name;
-  final int age;
+  // final int age;
+  final String email;
   const User({
     required this.name,
-    required this.age,
+    // required this.age,
+    required this.email,
   });
 
   User copywith({
     String? name,
-    int? age,
+    String? email,
   }) {
-    return User(name: name ?? this.name, age: age ?? this.age);
+    return User(name: name ?? this.name, email: email ?? this.email);
   }
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'age': age,
+      'age': email,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       name: map['name'] ?? '',
-      age: map['age']?.toInt() ?? 0,
+      email: map['age']?.toInt() ?? 0,
     );
   }
 
@@ -39,16 +41,16 @@ class User {
 
   @override
   String toString() {
-    return 'User{name: $name, age: $age}';
+    return 'User{name: $name, age: $email}';
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is User && runtimeType == other.runtimeType && name == other.name && age == other.age;
+      other is User && runtimeType == other.runtimeType && name == other.name && email == other.email;
 
   @override
-  int get hashCode => name.hashCode ^ age.hashCode;
+  int get hashCode => name.hashCode ^ email.hashCode;
 }
 
 // Extending StateNotifier give the UserNotifier class access to the state variable in order to update the data, ie the User
@@ -57,30 +59,30 @@ class UserNotifier extends StateNotifier<User> {
 
   // Instead of receiving the initial state from the StateNotifierProvider,
   // Set the initial state value directly in the StateNotifier class instead of StateNotifierProvider
-  UserNotifier() : super(const User(name: 'Christian Tsoungui Nkoulou', age: 27));
+  UserNotifier() : super(const User(name: 'Christian Tsoungui Nkoulou', email: "tsounguc@gmail.com"));
 
   void updateName(String newName) {
     state = state.copywith(name: newName);
   }
 
-  void updateAge(int newAge) {
-    state = state.copywith(age: newAge);
+  void updateAge(String newEmail) {
+    state = state.copywith(email: newEmail);
   }
 }
 
 // ChangeNotifier and ChangNotifier Provider are part of Provider and was added to Riverpod as a way to transition from Provider to Riverpod
 // However it is not advice to change use them when creating an app from scratch with Riverpod
-class UserNotifierChange extends ChangeNotifier {
-  // Unlike the StateNotifier, we have to create the state insid the class
-  User user = const User(name: "", age: 0);
-
-  void updateName(String newName) {
-    user = user.copywith(name: newName);
-    notifyListeners();
-  }
-
-  void updateAge(int newAge) {
-    user = user.copywith(age: newAge);
-    notifyListeners();
-  }
-}
+// class UserNotifierChange extends ChangeNotifier {
+//   // Unlike the StateNotifier, we have to create the state insid the class
+//   User user = const User(name: "", age: 0);
+//
+//   void updateName(String newName) {
+//     user = user.copywith(name: newName);
+//     notifyListeners();
+//   }
+//
+//   void updateAge(int newAge) {
+//     user = user.copywith(age: newAge);
+//     notifyListeners();
+//   }
+// }
