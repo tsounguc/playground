@@ -59,9 +59,13 @@ class User {
 // Putting UserRepository in a provider also use less memory
 // since provider caches the instance of UserRepository and returns it pretty quickly.
 // This also make it easier to test UserRepository
-final userRepositoryProvider = Provider((ref) => UserRepository());
+final userRepositoryProvider = Provider.autoDispose((ref) => UserRepository(ref));
 
 class UserRepository {
+  // Ref is like a super class to ProviderRef and WidgetRef. It can communicate with both
+  final Ref ref;
+  UserRepository(this.ref);
+
   // Always make http calls inside a separate class instead of directly in the Future provider
   Future<User> fetchUserData(String input) {
     var url = "https://jsonplaceholder.typicode.com/users/$input";
