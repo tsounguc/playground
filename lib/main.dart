@@ -31,9 +31,10 @@ import 'package:http/http.dart' as http;
 // final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
 // The FutureProvider fetchUserProvider is watching the Provider userRepositoryProvider
-final fetchUserProvider = FutureProvider((FutureProviderRef ref) {
+// The family modifier can only have one extra parameter passed in
+final fetchUserProvider = FutureProvider.family((FutureProviderRef ref, String input) {
   final userRepository = ref.watch(userRepositoryProvider);
-  return userRepository.fetchUserData();
+  return userRepository.fetchUserData(input);
 });
 
 final streamProvider = StreamProvider((ref) async* {
