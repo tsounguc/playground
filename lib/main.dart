@@ -89,3 +89,6 @@ class MyApp extends StatelessWidget {
 // 2. You have use ConsumerStatefulWidget or ConsumerWidget in order to use the WidgetRef or ProviderRef variables in the screens/pages using the providers
 // 3. When using the .family() modifier from a provider you can not pass more than one parameter.
 //    Allowing this modifier to have more than one parameter would allow the use of named parameters
+
+//Limitations of Riverpod Generator:
+// The only supported providers are FutureProvider and Provider
