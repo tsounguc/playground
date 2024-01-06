@@ -34,7 +34,7 @@ part 'main.g.dart';
 // final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
 @riverpod
-Future<User> fetchUser(FetchUserRef ref, String input) {
+Future<User> fetchUser(FetchUserRef ref, {required String input, required int someValue, required secondValue}) {
   final userRepository = ref.watch(userRepositoryProvider);
   return userRepository.fetchUserData(input);
 }

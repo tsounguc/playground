@@ -6,7 +6,7 @@ part of 'main.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchUserHash() => r'bea6a638294df40247c3fa7c6b90c82bfc1460ec';
+String _$fetchUserHash() => r'9fda1c148d089d73f64c095519f03f2fc37cef26';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -39,11 +39,15 @@ class FetchUserFamily extends Family<AsyncValue<User>> {
   const FetchUserFamily();
 
   /// See also [fetchUser].
-  FetchUserProvider call(
-    String input,
-  ) {
+  FetchUserProvider call({
+    required String input,
+    required int someValue,
+    required dynamic secondValue,
+  }) {
     return FetchUserProvider(
-      input,
+      input: input,
+      someValue: someValue,
+      secondValue: secondValue,
     );
   }
 
@@ -52,7 +56,9 @@ class FetchUserFamily extends Family<AsyncValue<User>> {
     covariant FetchUserProvider provider,
   ) {
     return call(
-      provider.input,
+      input: provider.input,
+      someValue: provider.someValue,
+      secondValue: provider.secondValue,
     );
   }
 
@@ -74,12 +80,16 @@ class FetchUserFamily extends Family<AsyncValue<User>> {
 /// See also [fetchUser].
 class FetchUserProvider extends AutoDisposeFutureProvider<User> {
   /// See also [fetchUser].
-  FetchUserProvider(
-    String input,
-  ) : this._internal(
+  FetchUserProvider({
+    required String input,
+    required int someValue,
+    required dynamic secondValue,
+  }) : this._internal(
           (ref) => fetchUser(
             ref as FetchUserRef,
-            input,
+            input: input,
+            someValue: someValue,
+            secondValue: secondValue,
           ),
           from: fetchUserProvider,
           name: r'fetchUserProvider',
@@ -90,6 +100,8 @@ class FetchUserProvider extends AutoDisposeFutureProvider<User> {
           dependencies: FetchUserFamily._dependencies,
           allTransitiveDependencies: FetchUserFamily._allTransitiveDependencies,
           input: input,
+          someValue: someValue,
+          secondValue: secondValue,
         );
 
   FetchUserProvider._internal(
@@ -100,9 +112,13 @@ class FetchUserProvider extends AutoDisposeFutureProvider<User> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.input,
+    required this.someValue,
+    required this.secondValue,
   }) : super.internal();
 
   final String input;
+  final int someValue;
+  final dynamic secondValue;
 
   @override
   Override overrideWith(
@@ -118,6 +134,8 @@ class FetchUserProvider extends AutoDisposeFutureProvider<User> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         input: input,
+        someValue: someValue,
+        secondValue: secondValue,
       ),
     );
   }
@@ -129,13 +147,18 @@ class FetchUserProvider extends AutoDisposeFutureProvider<User> {
 
   @override
   bool operator ==(Object other) {
-    return other is FetchUserProvider && other.input == input;
+    return other is FetchUserProvider &&
+        other.input == input &&
+        other.someValue == someValue &&
+        other.secondValue == secondValue;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, input.hashCode);
+    hash = _SystemHash.combine(hash, someValue.hashCode);
+    hash = _SystemHash.combine(hash, secondValue.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -144,6 +167,12 @@ class FetchUserProvider extends AutoDisposeFutureProvider<User> {
 mixin FetchUserRef on AutoDisposeFutureProviderRef<User> {
   /// The parameter `input` of this provider.
   String get input;
+
+  /// The parameter `someValue` of this provider.
+  int get someValue;
+
+  /// The parameter `secondValue` of this provider.
+  dynamic get secondValue;
 }
 
 class _FetchUserProviderElement extends AutoDisposeFutureProviderElement<User>
@@ -152,6 +181,10 @@ class _FetchUserProviderElement extends AutoDisposeFutureProviderElement<User>
 
   @override
   String get input => (origin as FetchUserProvider).input;
+  @override
+  int get someValue => (origin as FetchUserProvider).someValue;
+  @override
+  dynamic get secondValue => (origin as FetchUserProvider).secondValue;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
