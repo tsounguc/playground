@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'user.g.dart';
 
 // This class is immutable
 @immutable
@@ -54,12 +56,17 @@ class User {
   int get hashCode => name.hashCode ^ email.hashCode;
 }
 
+@riverpod
+UserRepository userRepository(UserRepositoryRef ref) {
+  return UserRepository(ref);
+}
+
 // We use a provider for UserRepository to have one place to instantiate it
 // and pass dependency's to it's constructor.
 // Putting UserRepository in a provider also use less memory
 // since provider caches the instance of UserRepository and returns it pretty quickly.
 // This also make it easier to test UserRepository
-final userRepositoryProvider = Provider.autoDispose((ref) => UserRepository(ref));
+// final userRepositoryProvider = Provider.autoDispose((ref) => UserRepository(ref));
 
 class UserRepository {
   // Ref is like a super class to ProviderRef and WidgetRef. It can communicate with both
