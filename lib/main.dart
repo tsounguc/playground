@@ -42,6 +42,9 @@ final fetchUserProvider =
 });
 
 final streamProvider = StreamProvider((ref) async* {
+  // You can use the ref.onDispose method to dispose streams subscriptions
+  // or other disposable thing without the .autoDispose() modifier
+  ref.onDispose(() {});
   yield [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 });
 
