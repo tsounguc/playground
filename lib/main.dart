@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:playground/logger_riverpod.dart';
 import 'package:playground/user.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'home_screen.dart';
 import 'package:http/http.dart' as http;
+part 'main.g.dart';
 
 // Provider is a read only widget and is immutable
 // ProviderRef allows a provider to communicate to other providers
@@ -31,16 +33,21 @@ import 'package:http/http.dart' as http;
 // which means we can change the value of the state object outside of the class
 // final userChangeNotifierProvider = ChangeNotifierProvider((ref) => UserNotifierChange());
 
+@riverpod
+Future<User> fetchUser(FetchUserRef ref, String input) {
+  final userRepository = ref.watch(userRepositoryProvider);
+  return userRepository.fetchUserData(input);
+}
 // The FutureProvider fetchUserProvider is watching the Provider userRepositoryProvider
 // The family modifier can only have one extra parameter passed in
 // the autoDispose modifier avoids memory leaks and disposes the provider and state when it's not in use
-final fetchUserProvider =
-    FutureProvider.family.autoDispose((AutoDisposeFutureProviderRef<Object?> ref, String input) {
-  // keepAlive() comes with autoDispose() modifier and it allows us to preserve the state of the provider
-  ref.keepAlive();
-  final userRepository = ref.watch(userRepositoryProvider);
-  return userRepository.fetchUserData(input);
-});
+// final fetchUserProvider =
+//     FutureProvider.family.autoDispose((AutoDisposeFutureProviderRef<Object?> ref, String input) {
+//   // keepAlive() comes with autoDispose() modifier and it allows us to preserve the state of the provider
+//   ref.keepAlive();
+//   final userRepository = ref.watch(userRepositoryProvider);
+//   return userRepository.fetchUserData(input);
+// });
 
 final streamProvider = StreamProvider((ref) async* {
   // You can use ref.onDispose() to dispose streams subscriptions
