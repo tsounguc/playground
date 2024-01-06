@@ -32,7 +32,8 @@ import 'package:http/http.dart' as http;
 
 // The FutureProvider fetchUserProvider is watching the Provider userRepositoryProvider
 // The family modifier can only have one extra parameter passed in
-final fetchUserProvider = FutureProvider.family((FutureProviderRef ref, String input) {
+// the autoDispose modifier avoids memory leaks and disposes the provider and state when it's not in use
+final fetchUserProvider = FutureProvider.family.autoDispose((FutureProviderRef ref, String input) {
   final userRepository = ref.watch(userRepositoryProvider);
   return userRepository.fetchUserData(input);
 });
