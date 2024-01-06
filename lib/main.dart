@@ -49,6 +49,10 @@ final streamProvider = StreamProvider((ref) async* {
   // You can use ref.onCancel() when your provider goes into a post state,
   // which means it's temporarily not being used or gets disposed
   ref.onCancel(() {});
+
+  // You can use ref.onResume() after the provider has been in the cancel state and it's come back
+  ref.onResume(() {});
+
   yield [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 });
 
